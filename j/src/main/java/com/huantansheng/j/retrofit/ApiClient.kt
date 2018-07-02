@@ -11,22 +11,25 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Retrofit配置文件
  * 需在app的module中配置具体参数及各种转换操作
+ * 注释掉的是Kotlin的另一种单例写法
  * Created by huan on 2018/6/25.
  */
-class ApiClient private constructor() {
-
+//class ApiClient private constructor() {
+object ApiClient {
     lateinit var retrofit: Retrofit
 
-    private object Holder {
-        val INSTANCE = ApiClient()
-    }
+//    private object Holder {
+//        val INSTANCE = ApiClient()
+//    }
 
-    companion object {
-        val instance by lazy { Holder.INSTANCE }
-    }
+//    companion object {
+//        val instance by lazy { Holder.INSTANCE }
+//    }
 
 
     fun initRetrofit(baseUrl: String) {
+        if (this::retrofit.isInitialized) return
+
         val interceptor = HttpLoggingInterceptor()
         if (BuildConfig.DEBUG)
             interceptor.level = HttpLoggingInterceptor.Level.BODY

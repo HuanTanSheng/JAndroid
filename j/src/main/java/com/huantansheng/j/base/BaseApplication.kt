@@ -32,7 +32,7 @@ abstract class BaseApplication : Application() {
     @SuppressLint("ShowToast")
     override fun onCreate() {
         super.onCreate()
-        ApiClient.instance.initRetrofit(getApiBaseUrl())
+        ApiClient.initRetrofit(getApiBaseUrl())
         instance = this
         toast = Toast.makeText(applicationContext, null, Toast.LENGTH_SHORT)
     }
