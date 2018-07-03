@@ -1,0 +1,100 @@
+apply plugin: 'com.android.library'
+
+//kotlin
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+ext{
+    anko_version = '0.10.4'
+    supportLibVersion = '28.0.0-alpha3'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //kotlin
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //kotlin anko
+    api "org.jetbrains.anko:anko-commons:$anko_version"
+    //UI基础库
+    api "com.android.support:appcompat-v7:$supportLibVersion"
+    api 'com.android.support.constraint:constraint-layout:1.1.2'
+    api "com.android.support:support-annotations:$supportLibVersion"
+    api "com.android.support:recyclerview-v7:$supportLibVersion"
+    api "com.android.support:design:$supportLibVersion"
+    //glide
+    api 'com.github.bumptech.glide:glide:4.5.0'
+    //网络
+    api 'com.squareup.retrofit2:retrofit:2.4.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    api 'com.google.code.gson:gson:2.8.5'
+    //rxjava2
+    api 'io.reactivex.rxjava2:rxkotlin:2.2.0'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    //rxlifecycle
+    api 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    api 'com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:2.2.1'
+    //AVLoadingIndicatorView
+    api 'com.wang.avi:library:2.1.3'
+
+    //一堆测试的
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+}
+
+
+
+// 指定编码
+//tasks.withType(JavaCompile) {
+//    options.encoding = "UTF-8"
+//}
+
+// 打包源码
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+//制作文档
+//task javadoc(type: Javadoc) {
+//    failOnError  false
+//    source = android.sourceSets.main.java.sourceFiles
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    classpath += configurations.compile
+//}
+
+// 打包文档
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+
+artifacts {
+    archives sourcesJar
+//    archives javadocJar
+}

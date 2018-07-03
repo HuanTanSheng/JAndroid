@@ -1,1 +1,1 @@
-include ':app', ':j'
+include ':app', ':jandroid'
