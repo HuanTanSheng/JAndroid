@@ -3,7 +3,7 @@ package com.huantansheng.jandroid.dialog
 import com.huantansheng.jandroid.R
 import com.othershe.nicedialog.NiceDialog
 
-object JDialog {
+object JDialogFragment {
     fun getLoadingDialog(): NiceDialog {
 
         return NiceDialog.init()
