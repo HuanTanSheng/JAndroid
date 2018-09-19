@@ -1,13 +1,13 @@
 package com.huantansheng.jandroid.dialog
 
 import com.huantansheng.jandroid.R
-import com.huantansheng.jandroid.dialog.jDialog.JDialogFragment
+import com.othershe.nicedialog.NiceDialog
 
 object JDialog {
-    fun getLoadingDialog(): JDialogFragment {
+    fun getLoadingDialog(): NiceDialog {
 
-        return JDialogFragment.init()
+        return NiceDialog.init()
                 .setLayoutId(R.layout.j_dialog_loading)
-                .setWidth(-1) as JDialogFragment
+                .setWidth(-1) as NiceDialog
     }
 }
