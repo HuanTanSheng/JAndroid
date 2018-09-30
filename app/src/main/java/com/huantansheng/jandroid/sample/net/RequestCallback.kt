@@ -13,14 +13,14 @@ abstract class RequestCallback<T> : DisposableSubscriber<ResponseWrapper<T>>() {
 
     abstract fun success(data: T)
     abstract fun failure(statusCode: Int, message: String)
-    abstract fun getDialog():Dialog
+    abstract fun getDialog():Dialog?
 
     private object Status {
         const val SUCCESS = 200
     }
 
     override fun onNext(t: ResponseWrapper<T>) {
-        getDialog().dismiss()
+        getDialog()?.dismiss()
         if (t.code == Status.SUCCESS) {
             success(t.data)
             return
@@ -30,11 +30,11 @@ abstract class RequestCallback<T> : DisposableSubscriber<ResponseWrapper<T>>() {
     }
 
     override fun onComplete() {
-        getDialog().dismiss()
+        getDialog()?.dismiss()
     }
 
     override fun onError(e: Throwable) {
-        getDialog().dismiss()
+        getDialog()?.dismiss()
         val msg: String = when (e) {
             is UnknownHostException -> "网络错误"
             is ConnectException -> "网络错误"
