@@ -1,5 +1,6 @@
 package com.huantansheng.jandroid.sample.net
 
+import android.app.Dialog
 import io.reactivex.FlowableSubscriber
 import org.reactivestreams.Subscription
 import java.net.ConnectException
@@ -8,15 +9,17 @@ import java.net.UnknownHostException
 
 abstract class RequestCallback<T> : FlowableSubscriber<ResponseWrapper<T>> {
 
+
     abstract fun success(data: T)
     abstract fun failure(statusCode: Int, message: String)
+    abstract fun getDialog():Dialog
 
     private object Status {
         const val SUCCESS = 200
     }
 
     override fun onSubscribe(s: Subscription) {
-        NetLoadingDialog.show()
+        getDialog().show()
     }
 
     override fun onNext(t: ResponseWrapper<T>) {
@@ -29,11 +32,11 @@ abstract class RequestCallback<T> : FlowableSubscriber<ResponseWrapper<T>> {
     }
 
     override fun onComplete() {
-        NetLoadingDialog.cancel()
+        getDialog().cancel()
     }
 
     override fun onError(e: Throwable) {
-        NetLoadingDialog.cancel()
+        getDialog().cancel()
         val msg: String = when (e) {
             is UnknownHostException -> "网络错误"
             is ConnectException -> "网络错误"
